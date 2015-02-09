@@ -1,6 +1,6 @@
 Little Calendars
 ===================
-A Drupal 7 input filter that sets up one or more cleanly formatted calendars. Each day of the month can have it's own link and background color to denote certain events. Core logic adapted from https://github.com/Goatella/PHP-Calendar/blob/master/cal.php. I in turned, converted to a class, allowed input of a current date function, added other embelishments as needed such as date highlighting, and made for use as a Drupal 7 Module. 
+A Drupal 7 input filter that sets up one or more cleanly formatted calendars. Each day of the month can have it's own link and background color to denote certain events. Core logic adapted from https://github.com/Goatella/PHP-Calendar/blob/master/cal.php. I, in turn, converted to a class, allowed input of a current date function, added other embelishments as needed such as date highlighting, and made for use as a Drupal 7 Module. 
 
 How to use
 ----------
