@@ -1,0 +1,93 @@
+<?php
+
+/**
+ * @file soc_littlecalendars.module
+ * TODO: Enter file description here.
+ */
+
+/**
+ * Implements hook_filter_info().
+ */
+function soc_littlecalendars_filter_info() {
+  $filters['minical'] = array(
+    'title' => t('Little Calendars'),
+    'description' => t('Produces small calendars with background highlighting and links through an input filter. Use [minical:2015|2|none,#336699,1,2,3|http://northwestern.edu,#445566,12,13,15]'),
+    'process callback' => '_soc_littlecalendars_process',
+    'cache'=>false,
+    );
+
+  return $filters;
+}
+
+
+function _soc_littlecalendars_process($text, $filter, $format='', $langcode="", $cache='', $cache_id='') {
+  module_load_include('inc', 'soc_littlecalendars', 'soc_littlecalendars');
+
+  $ptn = "/\[minical:(.*)\]/";
+  preg_match_all($ptn, $text, $matches);
+
+  /*
+  $matches[0][x] contains each full text match. This will be used in the final switch out
+  $matches[1][x] contains what will be used for the data string
+  */
+  foreach($matches[0] as $k=>$v) {
+    $cal = new PHPcal($matches[1][$k]);
+    $text = str_replace($matches[0][$k], $cal->produceHtml(), $text );
+  }
+
+
+  return $text;
+}
+
+
+
+/**
+ * Form builder.
+ */
+function soc_littlecalendars_settings_form($form, &$form_state) {
+  $form['soc_littlecalendars_tableCellWidth'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Table cell width'),
+    '#default_value' => variable_get('soc_littlecalendars_tableCellWidth', 42),
+    '#required' => TRUE,
+    '#description' => t('A <td width=X> width value applied to each day of the month. Defaults to 42. Recommended 36.')
+  );
+
+  $form['soc_littlecalendars_containerClass'] = array(
+    '#type'=>'textfield',
+    '#title'=>'Name of containing class',
+    '#default_value'=>variable_get('soc_littlecalendars_containerClass', 'minicalendar'),
+  );
+
+  // TODO! You probably don't need validation or submit handlers if using system_settings_form().
+  return system_settings_form($form);
+}
+
+
+
+/**
+ * Implements hook_menu().
+ */
+function soc_littlecalendars_menu() {
+  $items = array();
+
+  $items['admin/config/soc_littlecalendars'] = array(
+    'title' => 'Administer Little Calendars',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('soc_littlecalendars_settings_form'),
+    'access arguments' => array('administer little calendars'),
+  );
+  return $items;
+}
+
+/**
+ * Implements hook_permission().
+ */
+function soc_littlecalendars_permission() {
+  return array(
+    'administer little calendars' =>  array(
+      'title' => t('Administer Little Calendars'),
+      'description' => t('Perform administration tasks for Little Calendars'),
+    ),
+  );
+}

@@ -1,0 +1,6 @@
+name = Soc Littlecalendars
+description = TODO: Description of module
+package = SoC
+core = 7.x
+files[] = soc_littlecalendars.inc
+configure =admin/config/soc_littlecalendars
