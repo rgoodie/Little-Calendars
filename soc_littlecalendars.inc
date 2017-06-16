@@ -8,6 +8,10 @@ other embellishments as needed such as date highlighting;
 
 Class PHPcal {
 
+	
+	private $ctmztns = array();
+	private $directives = array();
+
 	public function __construct($processString) {
 
 		$this->processString($processString);
@@ -39,7 +43,7 @@ Class PHPcal {
 	*/
 	function processDirectives() {
 
-		$this->ctmztns = array();
+		//$this->ctmztns = array();
 
 		// prime array elements with no data
 		for ($i = 0; $i < 32; $i++) {
@@ -141,7 +145,7 @@ Class PHPcal {
 			*/
 			$bghx = ($this->ctmztns[$this->day_num]['data'] == TRUE) ? $this->ctmztns[$this->day_num]['bghx'] : '';
 
-            
+
 			$output .= "<td style='background-color: $bghx;' class='$b'>";
 			if ($this->ctmztns[$this->day_num]['data'] == TRUE && $this->ctmztns[$this->day_num]['link'] != "none") {
 				$output .= "<a href='" . $this->ctmztns[$this->day_num]['link'] . "'>";
