@@ -3,7 +3,7 @@
 /*
 Adapted from https://github.com/Goatella/PHP-Calendar/blob/master/cal.php. I in
 turned, converted to a class, allowed input of a current date function, and added
-other embelishments as needed such as date highlighting;
+other embellishments as needed such as date highlighting;
 */
 
 Class PHPcal {
@@ -129,7 +129,7 @@ Class PHPcal {
             */
             $bghx = ($this->ctmztns[$this->day_num]['data'] == true) ? $this->ctmztns[$this->day_num]['bghx'] : '';
 
-             $output .=  "<td style='background-color: $bghx;'>";
+             $output .=  "<td style='background-color: $bghx;' class='$b'>";
              if ($this->ctmztns[$this->day_num]['data'] == true && $this->ctmztns[$this->day_num]['link'] != "none") {
                 $output .=  "<a href='" . $this->ctmztns[$this->day_num]['link'] . "'>";
                 $output .=  $this->day_num ;
