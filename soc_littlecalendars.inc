@@ -8,15 +8,20 @@ other embellishments as needed such as date highlighting;
 
 Class PHPcal {
 
-	
-	private $ctmztns = array();
-	private $directives = array();
+	// arrays that will be used later.
+	private $ctmztns = array(),
+		$directives = array(),
+		$day_num = array(),
+		$year,
+		$month,
+		$day,
+		$day_count,
+		$day_of_week,
+		$days_in_month;
+
 
 	public function __construct($processString) {
-
 		$this->processString($processString);
-
-
 	}
 
 	/*
@@ -72,7 +77,6 @@ Class PHPcal {
 	}
 
 	public function produceHtml() {
-
 		// table cell width
 		$tbl_cell_width = variable_get('soc_littlecalendars_tableCellWidth', 42);
 
@@ -139,14 +143,19 @@ Class PHPcal {
 		//count up the days, untill we've done all of them in the month
 		while ($this->day_num <= $this->days_in_month) {
 
-			/*
-			Check to see if the customization array has any information inside
-			of it. If so, let's use this.
-			*/
+
+			// Check to see if the customization array has any information inside
+			// of it. If so, let's use this.
 			$bghx = ($this->ctmztns[$this->day_num]['data'] == TRUE) ? $this->ctmztns[$this->day_num]['bghx'] : '';
 
+			// If there is background color information, set it in the td. Also use that as a class name.
+			$class_name = str_replace('#', '', $bghx);
+			$output .= t("<td style='background-color: @background_color;' class='@class_name'>", array(
+				'@background_color' => $bghx,
+				'@class_name' => $class_name,
+			));
 
-			$output .= "<td style='background-color: $bghx;' class='$b'>";
+
 			if ($this->ctmztns[$this->day_num]['data'] == TRUE && $this->ctmztns[$this->day_num]['link'] != "none") {
 				$output .= "<a href='" . $this->ctmztns[$this->day_num]['link'] . "'>";
 				$output .= $this->day_num;
