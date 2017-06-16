@@ -33,6 +33,9 @@ Disclaimer
 ----------
 Use at your own risk. Test on a development or testing server, never on live code.
 
+Other caveat:
+-------------
+You may have to turn off the "Convert URLs into links" filter.
 
 
 
